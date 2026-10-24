@@ -1,0 +1,19 @@
+services:
+    - type: web
+      name: langchain-single-agent
+      runtime: python
+      plan: free
+
+      buildCommand: pip install uv && uv sync --frozen
+
+      startCommand: uv run --no-sync streamlit run app.py --server.address 0.0.0.0 --server.port $PORT --server.headless true
+
+      envVars:
+          - key: OPENAI_API_KEY
+            sync: false
+
+          - key: TAVILY_API_KEY
+            sync: false
+
+          - key: WEATHERSTACK_API_KEY
+            sync: false
